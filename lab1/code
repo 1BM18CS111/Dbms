@@ -1,0 +1,65 @@
+create user SUMAN identified by SUMAN;
+grant dba to SUMAN;
+
+create table person2 (
+driver_id varchar2(20),
+name2 varchar2(10), 
+address1 varchar2(20),
+primary key(driver_id));
+
+create table car2 (
+reg_no varchar2(10),
+model varchar2(20),
+year varchar2(10),
+primary key(reg_no));
+
+create table accident2(
+report_no varchar2(20),
+accident_date varchar2(20),
+location varchar2(20),
+primary key(report_no));
+
+create table owns2(
+driver_id varchar2(10),
+reg_no varchar2(10),
+primary key(driver_id,reg_no),
+foreign key(driver_id) references person2(driver_id),
+foreign key(reg_no) references car2(reg_no));
+
+create table participated2(
+driver_id varchar2(10), 
+reg_no varchar2(10),
+report_no varchar2(20),
+damage_amount varchar2(20),
+primary key(driver_id,reg_no,report_no),
+foreign key(driver_id) references person2(driver_id),
+foreign key(reg_no) references car2(reg_no),
+foreign key(report_no) references accident2(report_no));
+
+ insert into person2 values('&driver_id','&name2','&address2');
+commit;
+ select * from person2;
+ insert into car2 values('&reg_num','&model', &year);
+commit;
+ select * from car2;
+ 
+ insert into accident2 values('&report_no','&accident_date','&location');
+ commit;
+
+ select * from accident2;
+  insert into owns2 values ('&driver_id','&reg_no');
+commit;
+
+ select * from owns2;
+ insert into participated2 values ('&driver_id','&reg_no','&report_no','&damage_amount')
+ commit;
+ select * from participated2;
+ insert into accident values(16,'15-MAR-08','Domlur');
+
+select * from accident2;
+select count(distinct driver_id) CNT from participated a, accident b where
+a.report_num=b.report_num and b.accident_date like '%08';
+ 
+ 
+  
+
